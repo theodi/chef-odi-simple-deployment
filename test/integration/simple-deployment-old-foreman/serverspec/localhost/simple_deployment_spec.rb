@@ -13,7 +13,7 @@ describe file("/etc/nginx/sites-enabled/deploytest.theodi.org") do
 end
 
 # Make sure we have some code
-describe file("/var/www/deploytest.theodi.org/current/app.rb") do
+describe file("/var/www/deploytest.theodi.org/current/hello.rb") do
   it { should be_file }
 end
 
