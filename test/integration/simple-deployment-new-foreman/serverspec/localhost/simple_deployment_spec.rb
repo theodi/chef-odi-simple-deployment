@@ -37,8 +37,3 @@ end
 describe command("curl -H 'Host: deploytest.theodi.org' localhost") do
   it { should return_stdout /Hello, world!/ }
 end
-
-# Check we can actually access the thing
-describe command("curl -H 'Host: deploytest.theodi.org' localhost") do
-  it { should return_stdout /Hello, world!/ }
-end
