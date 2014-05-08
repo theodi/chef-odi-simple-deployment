@@ -23,7 +23,7 @@ describe file("/var/www/deploytest.theodi.org/current/.env") do
 end
 
 describe file("/etc/init/deployment-test-app-web-1.conf") do
-  its(:content) { should match /SUCH=test/ }
+  its(:content) { should match /SUCH='test'/ }
   its(:content) { should match /PORT=3000/ }
   its(:content) { should match /bundle exec ruby hello.rb -p \$PORT/ }
 end
