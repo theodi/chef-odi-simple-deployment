@@ -145,5 +145,6 @@ deploy_revision root_dir do
     end
   end
   restart_command "sudo service #{node['git_project']} restart"
+  notifies :restart, "service[nginx]"
   action :deploy
 end
