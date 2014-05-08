@@ -3,3 +3,5 @@
 /tmp/
 
 /.bundle/
+
+/deploy/key.pem
