@@ -9,7 +9,26 @@ platforms:
   - name: ubuntu-14.04
 
 suites:
-  - name: simple-deployment
-    run_list: "recipe[odi-simple-deployment]"
+  - name: simple-deployment-old-foreman
+    run_list:
+    - "recipe[odi-users]"
+    - "recipe[odi-rvm]"
+    - "recipe[envbuilder]"
+    - "recipe[odi-nginx]"
+    - "recipe[odi-simple-deployment]"
+    data_bags_path: test/data_bags
     attributes:
-    data_bags_path:
+      user: "deploytest"
+      rvm:
+        user: "deploytest"
+        ruby: "2.1.1"
+      envbuilder:
+        base_dir: "/home/env"
+        base_dbi: "production"
+        owner: "env"
+        group: "env"
+      project_fqdn: "deploytest.theodi.org"
+      git_project: "deployment-test-app"
+      RACK_ENV: "production"
+      deploy:
+        revision: "master"
