@@ -22,9 +22,20 @@ describe file("/var/www/deploytest.theodi.org/current/.env") do
   its(:content) { should match /SUCH: test/ }
 end
 
+describe file("/etc/init/deployment-test-app-web-1.conf") do
+  its(:content) { should match /SUCH=test/ }
+  its(:content) { should match /PORT=3000/ }
+  its(:content) { should match /bundle exec ruby hello.rb -p \$PORT/ }
+end
+
 # Make sure foreman job is running
 describe service("deployment-test-app-web-1") do
   it { should be_running }
+end
+
+# Check we can actually access the thing
+describe command("curl -H 'Host: deploytest.theodi.org' localhost") do
+  it { should return_stdout /Hello, world!/ }
 end
 
 # Check we can actually access the thing
