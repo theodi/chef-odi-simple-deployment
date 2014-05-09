@@ -42,7 +42,7 @@ GRAPH
     odi-xml (>= 0.0.0)
     rvm (>= 0.0.0)
     xslt (>= 0.0.0)
-  odi-simple-deployment (0.4.0)
+  odi-simple-deployment (0.4.1)
     git (>= 0.0.0)
   odi-users (0.2.0)
   odi-xml (0.1.0)

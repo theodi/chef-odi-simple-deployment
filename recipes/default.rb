@@ -94,6 +94,13 @@ deploy_revision root_dir do
     current_release_directory = release_path
     running_deploy_user       = new_resource.user
 
+    script 'Generate foreman path environment' do
+      interpreter 'bash'
+      code <<-EOF
+        echo "PATH=/home/#{node['user']}/.rvm/gems/ruby-#{node['rvm']['ruby']}@global/bin:/home/#{node['user']}/.rvm/rubies/ruby-#{node['rvm']['ruby']}/bin" > #{root_dir}/shared/path_env
+      EOF
+    end
+
     script 'Generate startup scripts with Foreman' do
       interpreter 'bash'
       cwd current_release_directory
@@ -104,6 +111,7 @@ deploy_revision root_dir do
           -u #{node['user']} \
           -t config/foreman \
           -p 3000 \
+          -e #{current_release_directory}/.env,#{root_dir}/shared/path_env \
           upstart /etc/init'
       EOF
     end
@@ -137,5 +145,6 @@ deploy_revision root_dir do
     end
   end
   restart_command "sudo service #{node['git_project']} restart"
+  notifies :restart, "service[nginx]"
   action :deploy
 end
