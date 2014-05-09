@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+- 2.1.1
+env:
+  global:
+  - secure: eFEQDAEq7wbVR+dblHm2dCU878JxhzyASWL8ufQQZpkFUDjTq0D0Y+VBJdhSX0rTuptzzfoSaLoHKZ3558B/B8qUlSCMpQfHuomMbHC2JYIfqm6RL6QN0CUvxBLBniTbyMHLNowWU0n2NzgE31bBrjf8rlik8mPJZ1YLW2skjKg=
+  - secure: Mm3fKBvV460w8cWjHcf550AS+/Vc/LgmzNkPZf1Wgs25YK0C6VdxH7nlPYu67DutIWyypkX7VKAreZZc0KMeMeQw3jlvj9j8WkwrBK27FuXvZvGMcSeAcSgXigDb300otTdRVqCTANTHHd7cPEi8V0PWypkASl+RAcxXrMcoV3o=
+  - KITCHEN_YAML=.kitchen.cloud.yml
+
+before_script:
+- ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
+
+script:
+- travis_wait 35 kitchen test --destroy=always
