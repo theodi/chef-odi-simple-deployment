@@ -97,7 +97,7 @@ deploy_revision root_dir do
     script 'Generate foreman path environment' do
       interpreter 'bash'
       code <<-EOF
-        echo "PATH=/home/#{node['user']}/.rvm/gems/ruby-#{node['rvm']['ruby']}@global/bin:/home/#{node['user']}/.rvm/rubies/ruby-#{node['rvm']['ruby']}/bin" >> #{root_dir}/shared/path_env
+        echo "PATH=/home/#{node['user']}/.rvm/gems/ruby-#{node['rvm']['ruby']}@global/bin:/home/#{node['user']}/.rvm/rubies/ruby-#{node['rvm']['ruby']}/bin" > #{root_dir}/shared/path_env
       EOF
     end
 
