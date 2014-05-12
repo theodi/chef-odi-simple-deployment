@@ -35,7 +35,11 @@ namespace :kitchen do
 
   desc "Run test-kitchen tests"
   task :test do
-    sh "kitchen test --destroy=always"
+    if ENV['KITCHEN_INSTANCE']
+      sh "kitchen test #{ENV['KITCHEN_INSTANCE']} --destroy=always"
+    else
+      sh "kitchen test --destroy=always"
+    end
   end
 
 end
