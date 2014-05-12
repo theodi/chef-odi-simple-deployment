@@ -17,6 +17,7 @@ platforms:
 suites:
   - name: simple-deployment-old-foreman
     run_list:
+    - "recipe[odi-apt]"
     - "recipe[odi-users]"
     - "recipe[odi-rvm]"
     - "recipe[envbuilder]"
@@ -40,6 +41,7 @@ suites:
         revision: "master"
   - name: simple-deployment-new-foreman
     run_list:
+    - "recipe[odi-apt]"
     - "recipe[odi-users]"
     - "recipe[odi-rvm]"
     - "recipe[envbuilder]"
