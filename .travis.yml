@@ -11,4 +11,4 @@ before_script:
 - ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
 
 script:
-- travis_wait 35 bundle exec kitchen test --destroy=always
+- travis_wait 35 bundle exec rake
