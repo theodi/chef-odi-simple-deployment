@@ -5,13 +5,13 @@ driver:
   rackspace_api_key: <%= ENV['RACKSPACE_API_KEY'] %>
   rackspace_region: lon
   require_chef_omnibus: latest
-  server_name: unlikely-to-work
+  wait_for: 1200
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
+  - name: ubuntu-14.04
 
 suites:
   - name: simple-deployment-old-foreman
