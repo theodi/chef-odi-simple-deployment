@@ -1,6 +1,12 @@
 ---
 driver:
-  name: vagrant
+  name: rackspace
+  rackspace_username: <%= ENV['RACKSPACE_USERNAME'] %>
+  rackspace_api_key: <%= ENV['RACKSPACE_API_KEY'] %>
+  rackspace_region: lon
+  require_chef_omnibus: latest
+  wait_for: 1200
+  server_name: chef-odi-simple-deployment-test
 
 provisioner:
   name: chef_zero

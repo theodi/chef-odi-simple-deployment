@@ -2,6 +2,10 @@ DEPENDENCIES
   envbuilder
     git: git://github.com/theodi/chef-envbuilder.git
     revision: 27252c8b85be41067ce364d62f9779855c5108b0
+  odi-apt
+    git: git://github.com/theodi/odi-chef.git
+    revision: b724aa80bd4b166d3bd8e8216e8bc54059ac8461
+    rel: site-cookbooks/odi-apt
   odi-nginx
     git: git://github.com/theodi/odi-chef.git
     revision: b724aa80bd4b166d3bd8e8216e8bc54059ac8461
@@ -26,6 +30,7 @@ DEPENDENCIES
     revision: 7ba48b5cf97f1bf32f5df30b7c263d745e652faf
 
 GRAPH
+  apt (2.3.10)
   build-essential (2.0.2)
   chef_handler (1.1.6)
   dmg (2.2.0)
@@ -37,6 +42,8 @@ GRAPH
     windows (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  odi-apt (0.1.0)
+    apt (>= 0.0.0)
   odi-nginx (0.4.0)
   odi-rvm (0.2.1)
     odi-xml (>= 0.0.0)
