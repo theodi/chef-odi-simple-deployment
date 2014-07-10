@@ -55,7 +55,7 @@ deploy_revision root_dir do
   environment "RACK_ENV" => node['RACK_ENV'],
               "HOME"     => "/home/#{user}"
   keep_releases 10
-  rollback_on_error false
+  rollback_on_error true
 
   repo "git://github.com/theodi/%s.git" % [
       node['git_project']
@@ -106,7 +106,15 @@ deploy_revision root_dir do
           -t config/foreman \
           -p 3000 \
           -e #{current_release_directory}/.env \
-          upstart /etc/init
+          upstart /tmp/init
+      EOF
+    end
+
+    script 'Copy startup scripts into the right place' do
+      interpreter 'bash'
+      user 'root'
+      code <<-EOF
+        mv /tmp/init/* /etc/init/
       EOF
     end
 
@@ -138,7 +146,7 @@ deploy_revision root_dir do
       ]
     end
   end
-#  restart_command "sudo service #{node['git_project']} restart"
-#  notifies :restart, "service[nginx]"
-  action :deploy
+  restart_command "sudo service #{node['git_project']} restart"
+  notifies :restart, "service[nginx]"
+  action :force_deploy
 end
