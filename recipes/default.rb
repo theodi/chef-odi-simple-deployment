@@ -55,7 +55,7 @@ deploy_revision root_dir do
   environment "RACK_ENV" => node['RACK_ENV'],
               "HOME"     => "/home/#{user}"
   keep_releases 10
-  rollback_on_error true
+  rollback_on_error false
 
   repo "git://github.com/theodi/%s.git" % [
       node['git_project']
@@ -81,10 +81,9 @@ deploy_revision root_dir do
     script 'Bundling the gems' do
       interpreter 'bash'
       cwd current_release_directory
-      path ['~/.rbenv/shims']
       user running_deploy_user
       code <<-EOF
-        bundle install \
+        /home/#{user}/.rbenv/shims/bundle install \
           --without=development test \
           --quiet \
           --path #{bundler_depot}
@@ -99,10 +98,9 @@ deploy_revision root_dir do
     script 'Generate startup scripts with Foreman' do
       interpreter 'bash'
       cwd current_release_directory
-      path ['~/.rbenv/shims']
       user running_deploy_user
       code <<-EOF
-        bundle exec foreman export \
+        /home/#{user}/.rbenv/shims/bundle exec foreman export \
           -a #{node['git_project']} \
           -u #{node['user']} \
           -t config/foreman \
@@ -140,7 +138,7 @@ deploy_revision root_dir do
       ]
     end
   end
-  restart_command "sudo service #{node['git_project']} restart"
-  notifies :restart, "service[nginx]"
+#  restart_command "sudo service #{node['git_project']} restart"
+#  notifies :restart, "service[nginx]"
   action :deploy
 end

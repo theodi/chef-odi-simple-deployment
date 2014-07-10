@@ -11,7 +11,8 @@ DEPENDENCIES
     revision: b724aa80bd4b166d3bd8e8216e8bc54059ac8461
     rel: site-cookbooks/odi-nginx
   odi-ruby
-    path: ../chef-odi-ruby
+    git: git://github.com/theodi/chef-odi-ruby.git
+    revision: 082d7139a95788b84aff5c2623f75d0838d0c038
   odi-simple-deployment
     path: .
     metadata: true
