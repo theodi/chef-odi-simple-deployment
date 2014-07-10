@@ -10,10 +10,8 @@ DEPENDENCIES
     git: git://github.com/theodi/odi-chef.git
     revision: b724aa80bd4b166d3bd8e8216e8bc54059ac8461
     rel: site-cookbooks/odi-nginx
-  odi-rvm
-    git: git://github.com/theodi/odi-chef.git
-    revision: b724aa80bd4b166d3bd8e8216e8bc54059ac8461
-    rel: site-cookbooks/odi-rvm
+  odi-ruby
+    path: ../chef-odi-ruby
   odi-simple-deployment
     path: .
     metadata: true
@@ -25,9 +23,9 @@ DEPENDENCIES
     git: git://github.com/theodi/odi-chef.git
     revision: b724aa80bd4b166d3bd8e8216e8bc54059ac8461
     rel: site-cookbooks/odi-xml
-  rvm
-    git: git://github.com/theodi/chef-rvm.git
-    revision: 7ba48b5cf97f1bf32f5df30b7c263d745e652faf
+  rbenv
+    git: git://github.com/fnichol/chef-rbenv.git
+    revision: 0a3018634bafe58ad21c6ee271af015220e444b9
 
 GRAPH
   apt (2.3.10)
@@ -42,28 +40,32 @@ GRAPH
     windows (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
+  java (1.22.0)
   odi-apt (0.1.0)
     apt (>= 0.0.0)
   odi-nginx (0.4.0)
-  odi-rvm (0.2.1)
-    odi-xml (>= 0.0.0)
-    rvm (>= 0.0.0)
-    xslt (>= 0.0.0)
-  odi-simple-deployment (0.4.1)
+  odi-ruby (0.1.0)
+    rbenv (>= 0.0.0)
+    ruby_build (>= 0.0.0)
+  odi-simple-deployment (1.0.0)
     git (>= 0.0.0)
+    odi-ruby (>= 0.0.0)
   odi-users (0.2.0)
   odi-xml (0.1.0)
     xml (>= 0.0.0)
+  ohai (2.0.1)
+  rbenv (0.7.3)
+    java (> 1.4.0)
+    ruby_build (>= 0.0.0)
+  ruby_build (0.8.0)
   runit (1.5.10)
     build-essential (>= 0.0.0)
     yum (~> 3.0)
     yum-epel (>= 0.0.0)
-  rvm (0.0.2)
   windows (1.31.0)
     chef_handler (>= 0.0.0)
   xml (1.2.4)
     build-essential (>= 0.0.0)
-  xslt (0.0.1)
   yum (3.2.0)
   yum-epel (0.3.6)
     yum (~> 3.0)

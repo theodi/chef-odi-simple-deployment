@@ -25,6 +25,7 @@
 #
 
 include_recipe 'git'
+include_recipe 'odi-ruby'
 
 root_dir = "/var/www/%s" % [
     node['project_fqdn']
@@ -80,12 +81,13 @@ deploy_revision root_dir do
     script 'Bundling the gems' do
       interpreter 'bash'
       cwd current_release_directory
-#      user running_deploy_user
+      path ['~/.rbenv/shims']
+      user running_deploy_user
       code <<-EOF
-         su - #{running_deploy_user} -c 'cd #{current_release_directory} && rvmsudo bundle install \
+        bundle install \
           --without=development test \
           --quiet \
-          --path #{bundler_depot}'
+          --path #{bundler_depot}
       EOF
     end
   end
@@ -94,25 +96,19 @@ deploy_revision root_dir do
     current_release_directory = release_path
     running_deploy_user       = new_resource.user
 
-    script 'Generate foreman path environment' do
-      interpreter 'bash'
-      code <<-EOF
-        echo "PATH=/home/#{node['user']}/.rvm/gems/ruby-#{node['rvm']['ruby']}@global/bin:/home/#{node['user']}/.rvm/rubies/ruby-#{node['rvm']['ruby']}/bin" > #{root_dir}/shared/path_env
-      EOF
-    end
-
     script 'Generate startup scripts with Foreman' do
       interpreter 'bash'
       cwd current_release_directory
-#      user running_deploy_user
+      path ['~/.rbenv/shims']
+      user running_deploy_user
       code <<-EOF
-        su - #{running_deploy_user} -c 'cd #{current_release_directory} && rvmsudo bundle exec foreman export \
+        bundle exec foreman export \
           -a #{node['git_project']} \
           -u #{node['user']} \
           -t config/foreman \
           -p 3000 \
-          -e #{current_release_directory}/.env,#{root_dir}/shared/path_env \
-          upstart /etc/init'
+          -e #{current_release_directory}/.env \
+          upstart /etc/init
       EOF
     end
 
