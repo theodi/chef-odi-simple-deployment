@@ -95,6 +95,17 @@ deploy_revision root_dir do
     current_release_directory = release_path
     running_deploy_user       = new_resource.user
 
+    script 'Make dirs for Foreman' do
+      interpreter 'bash'
+      user 'root'
+      code <<-EOF
+        mkdir -p /var/log/#{node['git_project']}
+        chown #{running_deploy_user } /var/log/#{node['git_project']}
+        mkdir -p /var/run/#{node['git_project']}
+        chown #{running_deploy_user } /var/run/#{node['git_project']}
+      EOF
+    end
+
     script 'Generate startup scripts with Foreman' do
       interpreter 'bash'
       cwd current_release_directory
