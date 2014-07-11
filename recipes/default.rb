@@ -100,12 +100,13 @@ deploy_revision root_dir do
       cwd current_release_directory
       user running_deploy_user
       code <<-EOF
+        echo "PATH=/home/#{user}/.rbenv/shims:/usr/local/bin:/usr/bin:/bin" > #{root_dir}/shared/path_env
         /home/#{user}/.rbenv/shims/bundle exec foreman export \
           -a #{node['git_project']} \
           -u #{node['user']} \
           -t config/foreman \
           -p 3000 \
-          -e #{current_release_directory}/.env \
+          -e #{current_release_directory}/.env,#{root_dir}/shared/path_env \
           upstart /tmp/init
       EOF
     end
