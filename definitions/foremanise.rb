@@ -1,29 +1,33 @@
 define :foremanise, :params => {} do
+  name = params[:name]
   user = params[:user]
+  cwd = params[:cwd]
+  root_dir = params[:root_dir]
+  port = params[:port]
 
   script 'Make dirs for Foreman' do
     interpreter 'bash'
     user 'root'
     code <<-EOF
-      mkdir -p /var/log/#{params[:name]}
-      chown #{user} /var/log/#{params[:name]}
-      mkdir -p /var/run/#{params[:name]}
-      chown #{params[:user]} /var/run/#{params[:name]}
+      mkdir -p /var/log/#{name}
+      chown #{user} /var/log/#{name}
+      mkdir -p /var/run/#{name}
+      chown #{user} /var/run/#{name}
     EOF
   end
 
   script 'Generate startup scripts with Foreman' do
     interpreter 'bash'
-    cwd params[:cwd]
-    user params[:user]
+    cwd cwd
+    user user
     code <<-EOF
-      echo "PATH=/home/#{user}/.rbenv/shims:/usr/local/bin:/usr/bin:/bin" > #{params[:root_dir]}/shared/path_env
+      echo "PATH=/home/#{user}/.rbenv/shims:/usr/local/bin:/usr/bin:/bin" > #{root_dir}/shared/path_env
       /home/#{user}/.rbenv/shims/bundle exec foreman export \
-        -a #{params[:name]} \
+        -a #{name} \
         -u #{user} \
         -t config/foreman \
-        -p 3000 \
-        -e #{cwd}/.env,#{params[:root_dir]}/shared/path_env \
+        -p #{port} \
+        -e #{cwd}/.env,#{root_dir}/shared/path_env \
         upstart /tmp/init
     EOF
   end
