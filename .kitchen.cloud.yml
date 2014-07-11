@@ -19,16 +19,16 @@ suites:
     run_list:
     - "recipe[odi-apt]"
     - "recipe[odi-users]"
-    - "recipe[odi-rvm]"
     - "recipe[envbuilder]"
     - "recipe[odi-nginx]"
     - "recipe[odi-simple-deployment]"
     data_bags_path: test/data_bags
     attributes:
       user: "deploytest"
-      rvm:
-        user: "deploytest"
-        ruby: "2.1.1"
+      odi-ruby:
+        users:
+          deploytest:
+          - '2.1.2'
       envbuilder:
         base_dir: "/home/env"
         base_dbi: "production"
@@ -43,16 +43,16 @@ suites:
     run_list:
     - "recipe[odi-apt]"
     - "recipe[odi-users]"
-    - "recipe[odi-rvm]"
     - "recipe[envbuilder]"
     - "recipe[odi-nginx]"
     - "recipe[odi-simple-deployment]"
     data_bags_path: test/data_bags
     attributes:
       user: "deploytest"
-      rvm:
-        user: "deploytest"
-        ruby: "2.1.1"
+      odi-ruby:
+        users:
+          deploytest:
+          - '2.1.2'
       envbuilder:
         base_dir: "/home/env"
         base_dbi: "production"
